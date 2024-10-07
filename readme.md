@@ -34,7 +34,7 @@ Start by cloning this repository and opening in VS Code.
 
 5. Run the application (not yet!)
 
-6. `app.main:app --reload --port=5000`
+6. `uvicorn app.main:app --reload --port=5000`
 
 
 
