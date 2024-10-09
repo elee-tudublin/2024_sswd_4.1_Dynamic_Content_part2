@@ -409,7 +409,7 @@ def add_item(request: Request, item: str = Form(...)):
 
     # get item value from the form POST data
     new_todo : str = addTodo(item)
-    return templates.TemplateResponse("partials/todo/todo.html", {"request": request, "todo": new_todo})
+    return templates.TemplateResponse("partials/todo/todo_li.html", {"request": request, "todo": new_todo})
 ```
 
 
@@ -428,7 +428,7 @@ Add the following just after the existing line for `home_router`
 
 ### 2.3.5. A page to display the todo list items
 
-the default todo route `/` passes `todoList` to **`/app/view_templates/todo.html`**. This page template works like previous examples. 
+the default todo route `/` passes `todoList` to **`/app/view_templates/todos.html`**. This page template works like previous examples. 
 
 Here is the code - notice that the htmx attributes on the form element used to add new todo items - these will be discussed the next part.
 
@@ -489,7 +489,7 @@ Here is the code - notice that the htmx attributes on the form element used to a
 
 ### 2.3.6. The `todo_list.html` partial
 
-This file should be added to **`app/view_templates/partials/todo`**. It is a separate component which generates the todo list items. This is included as part of `todo.html` 
+This file should be added to **`app/view_templates/partials/todo/`**. It is a separate component which generates the todo list items:
 
 ```html
 <!-- loop through the list of todos and display the details for each todo in the list -->
@@ -509,7 +509,7 @@ This file should be added to **`app/view_templates/partials/todo`**. It is a sep
 
 ### 2.3.7. Add new items to the list
 
-The form in `todo.html` uses htmx to make an Ajax call when it is posted. This adds a new todo to the server-side list and then sends back the a new html list item with is inserted into the page.
+The form in `todo_li.html` uses htmx to make an Ajax call when it is posted. This adds a new todo to the server-side list and then sends back the a new html list item with is inserted into the page.
 
 ![form](assets/form.png)
 
@@ -524,7 +524,7 @@ The form includes the following htmx attributes:
 
 When text is entered and the form submitted (via the button), the input values are set to the  `/add` route handler in `todo_routes.py`. 
 
-This function calls  todo_service `addToDo(item)` to add the new item to the list and then respond with a new list item based on the partial **`partials/todo/todo.html`**. Note that this does not use a loop to update the entire list.
+This function calls  todo_service `addToDo(item)` to add the new item to the list and then respond with a new list item based on the partial **`partials/todo/todo_li.html`**. Note that this does not use a loop to update the entire list.
 
 ```html
 <li id="{{ todo.id }}" class="list-group-item  d-flex justify-content-between align-items-start">
